@@ -11,13 +11,22 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 
+// middleware to compress responses in prod environment
+const compression = require("compression");
+
+//sets headers for security reasons in production environment
+const helmet = require("helmet");
+
 
 var app = express();
 
 // Set up database connection
 const mongoose = require("mongoose");
-const mongoDB = process.env.DB_URI;
-mongoose.connect(mongoDB);
+const dev_mongoDB = process.env.DB_URI;
+
+const mongoDB = process.env.MONGODB_URI || dev_mongoDB;
+
+mongoose.connect(dev_mongoDB);
 const connection = mongoose.connection;
 connection.on("connected", function () {
   console.log("Mongoose connected to DB");
@@ -43,6 +52,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
+app.use(compression());
+app.use(helmet());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
