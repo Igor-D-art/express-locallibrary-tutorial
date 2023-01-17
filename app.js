@@ -22,7 +22,7 @@ var app = express();
 
 // Set up database connection
 const mongoose = require("mongoose");
-const dev_mongoDB = process.env.DB_URI;
+const dev_mongoDB = 'mongodb+srv://stateObject:stateObjectAccessesDb@clusterone.4veitgc.mongodb.net/?retryWrites=true&w=majority'
 
 const mongoDB = process.env.MONGODB_URI || dev_mongoDB;
 
