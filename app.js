@@ -26,7 +26,7 @@ const dev_mongoDB = 'mongodb+srv://stateObject:stateObjectAccessesDb@clusterone.
 
 const mongoDB = process.env.MONGODB_URI || dev_mongoDB;
 
-mongoose.connect(dev_mongoDB);
+mongoose.connect(mongoDB);
 const connection = mongoose.connection;
 connection.on("connected", function () {
   console.log("Mongoose connected to DB");
